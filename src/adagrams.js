@@ -70,14 +70,42 @@ export const scoreWord = (word) => {
     'Q': 10, 'Z': 10
   };
   for (const letter of word) {
-    total += scoreChart[letter.toUpperCase()];
+    total += scoreChart[letter.toUpperCase()] || 0;
   }
-  if (word.length >=7 & word.length <= 10 ){
+  if (word.length >= 7 && word.length <= 10) {
     total += 8;
   }
-  return total
+  return total;
 };
 
 export const highestScoreFrom = (words) => {
-  
+  const wordScore = {};
+  for (const word of words) {
+    wordScore[word] = scoreWord(word);
+  }
+  let highestScore = 0;
+  let highestWord = '';
+  // let result = {}
+
+  for (const [word, score] of Object.entries(wordScore)) {
+
+    if (score > highestScore) {
+      highestScore = score;
+      highestWord = word;
+      
+    } else if (score == highestScore) {
+        if (word.length == 10 && highestWord.length != 10){
+          highestWord = word;
+        } else if (word.length <highestWord.length && highestWord.length !=10){
+          highestWord = word;
+        }
+      
+    }
+  }
+  return { word: highestWord, 
+    score: highestScore };
 };
+//when tie
+//when their lenghth is not same, there is no length that is 10, returen the shortest
+// when there is one length is 10, return this word
+//when their length is same, return the first element.
