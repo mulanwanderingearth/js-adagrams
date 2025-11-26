@@ -33,19 +33,31 @@ export const drawLetters = () => {
     for (let i = 0; i < count; i++) {
       poolList.push(letter);
     }
-  };
+  }
   const drawn = [];
   for (let i = 0; i < 10; i++) {
     const randomIndex = Math.floor(Math.random() * poolList.length);
     drawn.push(poolList[randomIndex]);
-    poolList.splice(randomIndex,1)
-  };
+    poolList.splice(randomIndex, 1);
+  }
   return drawn;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
-  
+  const inHandCounts = {};
+  for (const letter of lettersInHand) {
+    inHandCounts[letter] = (inHandCounts[letter] || 0) + 1;
+  }
+  for (const letter of input) {
+    if (letter in inHandCounts && inHandCounts[letter] > 0) {
+      inHandCounts[letter] -= 1;
+    }
+    else {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
