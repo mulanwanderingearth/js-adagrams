@@ -34,10 +34,14 @@ export const drawLetters = () => {
     }
   }
   const drawn = [];
+  let usedIndices = new Set();
   for (let i = 0; i < 10; i++) {
-    const randomIndex = Math.floor(Math.random() * poolList.length);
+    let randomIndex = Math.floor(Math.random() * poolList.length);;
+    while (usedIndices.has(randomIndex)) {
+      randomIndex = Math.floor(Math.random() * poolList.length);
+    }
     drawn.push(poolList[randomIndex]);
-    poolList.splice(randomIndex, 1);
+    usedIndices.add(randomIndex)
   }
   return drawn;
 };
