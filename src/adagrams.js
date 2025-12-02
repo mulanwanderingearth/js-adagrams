@@ -85,13 +85,10 @@ export const highestScoreFrom = (words) => {
   }
   let highestScore = 0;
   let highestWord = '';
-
   for (const [word, score] of Object.entries(wordScore)) {
-
     if (score > highestScore) {
       highestScore = score;
       highestWord = word;
-
     } else if (score === highestScore && highestWord.length !== 10) {
       if (word.length === 10 || word.length < highestWord.length) {
         highestWord = word;
