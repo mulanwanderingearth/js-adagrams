@@ -85,27 +85,21 @@ export const highestScoreFrom = (words) => {
   }
   let highestScore = 0;
   let highestWord = '';
-  // let result = {}
 
   for (const [word, score] of Object.entries(wordScore)) {
 
     if (score > highestScore) {
       highestScore = score;
       highestWord = word;
-      
-    } else if (score == highestScore) {
-        if (word.length == 10 && highestWord.length != 10){
-          highestWord = word;
-        } else if (word.length <highestWord.length && highestWord.length !=10){
-          highestWord = word;
-        }
-      
+
+    } else if (score === highestScore && highestWord.length !== 10) {
+      if (word.length === 10 || word.length < highestWord.length) {
+        highestWord = word;
+      }
     }
   }
-  return { word: highestWord, 
-    score: highestScore };
+  return {
+    word: highestWord,
+    score: highestScore
+  };
 };
-//when tie
-//when their lenghth is not same, there is no length that is 10, returen the shortest
-// when there is one length is 10, return this word
-//when their length is same, return the first element.
